@@ -15,7 +15,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         <link
           rel="icon"
-          href="favicon.svg"
+          href="/favicon/favicon.svg"
           sizes="any"
         />
       </head>

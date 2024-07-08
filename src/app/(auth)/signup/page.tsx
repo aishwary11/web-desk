@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 
@@ -6,9 +7,11 @@ const Home: React.FC = () => {
   const router = useRouter();
   const [user, setUser] = useState<User>({ userName: '', email: '', password: '' });
   const [passwordStrength, setPasswordStrength] = useState<string>('');
+  const [loading, setLoading] = useState(false);
   const [isPasswordInputFocused, setIsPasswordInputFocused] = useState<boolean>(false);
 
   const handleSubmit = async (event: FormEvent) => {
+    setLoading(true);
     event.preventDefault();
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/signup`, {
       method: 'POST',
@@ -16,6 +19,7 @@ const Home: React.FC = () => {
     });
     await res.json();
     if (res.ok) {
+      setLoading(false);
       router.push('/login');
     }
   };
@@ -40,6 +44,17 @@ const Home: React.FC = () => {
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign up for a new account</h2>
         </div>
+        <p className="text-red-500 text-center">
+          {loading && (
+            <Image
+              src="/gif/loading.gif"
+              alt="loading"
+              width={50}
+              height={50}
+              className="mx-auto"
+            />
+          )}
+        </p>
         <form
           className="mt-8 space-y-6"
           onSubmit={handleSubmit}

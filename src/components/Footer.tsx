@@ -1,4 +1,4 @@
-export default function Header() {
+const Footer: React.FC = () => {
   return (
     <header className="flex justify-center items-center p-2">
       <p className="text-red-500">
@@ -7,4 +7,5 @@ export default function Header() {
       </p>
     </header>
   );
-}
+};
+export default Footer;
